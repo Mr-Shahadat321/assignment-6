@@ -3,6 +3,10 @@ const loadCategories = () =>{
     .then((res) => res.json())
     .then(data => displayCategories(data.categories))
 }
+const removeActive = ()=> {
+    const catBtn =document.querySelectorAll(".categoryBtn")
+    catBtn.forEach(btn =>btn.classList.remove("active"))
+}
 
 // for default trees plant
 const loadAllTrees = () =>{
@@ -13,10 +17,15 @@ const loadAllTrees = () =>{
 
 const loadTreeCard = (id)=>{
     const url = `https://openapi.programming-hero.com/api/category/${id}`
-    console.log(id);
      fetch(url)
      .then(res=> res.json())
-     .then(data => displayTreeCat(data.plants))  
+     .then(data => {
+         removeActive();
+        const clickCat = document.getElementById (`activeCategory${id}`);
+        clickCat.classList.add("active")
+       
+        displayTreeCat(data.plants);
+     })  
 }
 
 
@@ -60,7 +69,7 @@ const displayCategories = (cats) =>{
     cats.forEach(cat =>{
        const catLi = document.createElement("li")
        catLi.innerHTML = `
-             <button onclick="loadTreeCard('${cat.id}')" class="btn btn-wide block justify-start">${cat.category_name}</button>
+             <button id="activeCategory${cat.id}" onclick="loadTreeCard('${cat.id}')" class="btn btn-wide block justify-start categoryBtn">${cat.category_name}</button>
        `
          categorylist.appendChild(catLi)
     })
