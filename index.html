@@ -59,7 +59,7 @@
               <li><a>Plant a Tree</a></li>
             </ul>
           </div>
-          <a class="btn btn-ghost text-xl text-white">Green Earth</a>
+          <a class="btn bg-green-600 btn-ghost text-xl text-white">Green Earth</a>
         </div>
         <div class="navbar-center hidden lg:flex">
           <ul class="menu menu-horizontal px-1 flex gap-4 text-white">
@@ -93,25 +93,26 @@
         
       </div> 
     </section>
+     <!-- spinner-section -->
+
      <!-- category tree section -->
 <section class="bg-gray-100 py-10">
-  <!-- Header -->
-  <h1 class="text-2xl font-bold text-center mb-6">Choose Your Trees</h1>
 
-  <!-- Main Grid -->
-  <div class="grid grid-cols-5 gap-5 mx-auto px-5">
-    
-    <!-- Left-side-Categories -->
-    <div class="col-span-1 p-4 bg-white rounded shadow">
-      <h3 class="text-xl font-semibold">Categories</h3>
+    <!-- left-side-category -->
+
+  <h1 class="text-2xl font-bold text-center mb-6">Choose Your Trees</h1>
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-5 mx-auto px-5">
+    <div class="col-span-1 p-4 bg-white rounded shadow text-center mx-auto md:order-none">
+      <h3 class="text-xl font-semibold">Categories</h3> 
       <ul id="category-list" class="py-4">
-        <button class="btn btn-wide justify-start">All Trees</button>
+        
+            <button class="btn btn-wide justify-start">All Trees</button>
+        
       </ul>
     </div>
-
     <!-- Middle-Trees Item -->
     <div id="trees-item" class="col-span-3 p-4 bg-white rounded shadow">
-       <div id="trees-grid" class="grid grid-cols-3 grid-rows-2 gap-6">
+       <div id="trees-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6">
           
       </div> 
     </div>
@@ -138,9 +139,7 @@
   </div>
 </dialog>
 </section>      
-    </main>
-  
-  
+   </main>  
 <script src="./script/index.js"></script>
   </body>
 </html>

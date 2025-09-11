@@ -32,6 +32,48 @@ const loadTreeDetail = async(id) => {
      displayCatdetails(details.plants);
 }
 
+// for add-cart
+let cart = [];
+const cartList = document.getElementById("cart-list")
+const addToCart = (name, price) =>{
+    const newItem = {name, price};
+    cart.push(newItem);
+    displayCart()
+}
+
+const displayCart = () => {
+   cartList.innerHTML = "<h1 class='text-xl mb-4'>Your Cart</h1>";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price;
+    const div = document.createElement("div");
+    div.classList.add("flex", "justify-between", "items-center", "mb-2");
+    div.innerHTML = `
+      <div>
+   <p class="font-semibold">${item.name}</p>
+ <p class="text-sm">৳${item.price}</p>
+      </div>
+      <button onclick="removeFromCart(${index})" class="text-red-500 font-bold">X</button>
+    `;
+    cartList.appendChild(div);
+  });
+   const totalDiv = document.createElement("div");
+
+  totalDiv.classList.add("mt-4", "flex", "justify-between", "items-center", "font-bold", "pt-2");
+  totalDiv.innerHTML = `
+                <span>Total</span>
+                <span>৳${total}</span>
+    `;
+  cartList.appendChild(totalDiv);
+};
+
+const removeFromCart = (index) => {
+  cart.splice(index, 1); 
+  displayCart(); 
+};
+
+
 // {
 //   "plants": {
 //     "id": 1,
@@ -79,7 +121,7 @@ const displayTreeCat = (treeCarts) =>{
               <span class="bg-gray-100 px-3 py-1 rounded-3xl">Fruit Tree</span>
               <span class="font-semibold">৳500</span>
             </div>
-            <button class="btn w-full bg-green-600 text-white rounded-3xl btn-sm mt-2">Add to Cart</button>
+            <button onclick="addToCart('${treeCart.name}', ${treeCart.price})" class="btn w-full bg-green-600 text-white rounded-3xl btn-sm mt-2">Add to Cart</button>
           </div>
         </div>
         `
@@ -106,7 +148,6 @@ const displayCategories = (cats) =>{
          categorylist.appendChild(catLi)
     })
 }
-
 
 loadCategories();
 loadAllTrees()
