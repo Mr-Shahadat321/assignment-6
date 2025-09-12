@@ -10,21 +10,21 @@ const removeActive = ()=> {
 }
 //controll spinner
 
-const controllSpinner = (status) =>{
+// const controllSpinner = (status) =>{
     
-    if(status === true){
-           document.getElementById("spinner").classList.remove("hidden")
-           document.getElementById("choose-tree-header").classList.remove("hidden")
+//     if(status === true){
+//            document.getElementById("spinner").classList.remove("hidden")
+//            document.getElementById("choose-tree-header").classList.remove("hidden")
       
-    }else{
-           document.getElementById("choose-tree-header").classList.remove("hidden")
-           document.getElementById("spinner").classList.remove("hidden")
-    }
-}
+//     }else{
+//            document.getElementById("choose-tree-header").classList.remove("hidden")
+//            document.getElementById("spinner").classList.remove("hidden")
+//     }
+// }
 
 // for default trees plant
 const loadAllTrees = () =>{
-  controllSpinner(true)
+ // controllSpinner(true)
     fetch("https://openapi.programming-hero.com/api/plants")
         .then((res) => res.json())
         .then(data => displayTreeCat(data.plants))
@@ -36,12 +36,10 @@ const loadTreeCard = (id)=>{
      .then(data => {
          removeActive();
         const clickCat = document.getElementById (`activeCategory${id}`);
-        clickCat.classList.add("active")
-       
-        displayTreeCat(data.plants);
-        
+        clickCat.classList.add("active")       
+        displayTreeCat(data.plants);       
      })  
-     controllSpinner(false)
+     //controllSpinner(false)
     
 }
 const loadTreeDetail = async(id) => {
@@ -59,9 +57,9 @@ const addToCart = (name, price) =>{
     cart.push(newItem);
     displayCart()
 }
-
 const displayCart = () => {
    cartList.innerHTML = "<h1 class='text-xl mb-4'>Your Cart</h1>";
+
   let total = 0;
 
   cart.forEach((item, index) => {
@@ -71,7 +69,7 @@ const displayCart = () => {
     div.innerHTML = `
       <div>
    <p class="font-semibold">${item.name}</p>
- <p class="text-sm">৳${item.price}</p>
+      <p class="text-sm">৳${item.price}</p>
       </div>
       <button onclick="removeFromCart(${index})" class="text-red-500 font-bold">X</button>
     `;
@@ -121,7 +119,6 @@ const displayCatdetails = (id)=>{
       `
     document.getElementById("trees_modal").showModal()
 }
-
 const displayTreeCat = (treeCarts) =>{ 
     const treesGrid = document.getElementById("trees-grid")
     treesGrid.innerHTML= ""
@@ -151,7 +148,6 @@ const displayTreeCat = (treeCarts) =>{
 //     "category_name": "Fruit Tree",
 //     "small_description": "Trees that bear edible fruits like mango, guava, and jackfruit."
 // }
-
 const displayCategories = (cats) =>{
     const categorylist = document.getElementById("category-list");
     categorylist.innerHTML = "";
@@ -162,9 +158,7 @@ const displayCategories = (cats) =>{
              <button id="activeCategory${cat.id}" onclick="loadTreeCard('${cat.id}')" class="btn btn-wide block justify-start categoryBtn">${cat.category_name}</button>
        `
          categorylist.appendChild(catLi)
-    });
-    
+    });   
 };
-
 loadCategories();
 loadAllTrees()
