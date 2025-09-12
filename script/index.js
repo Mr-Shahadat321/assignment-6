@@ -1,4 +1,5 @@
 const loadCategories = () =>{
+    
     fetch("https://openapi.programming-hero.com/api/categories")
     .then((res) => res.json())
     .then(data => displayCategories(data.categories))
@@ -7,8 +8,23 @@ const removeActive = ()=> {
     const catBtn =document.querySelectorAll(".categoryBtn")
     catBtn.forEach(btn =>btn.classList.remove("active"))
 }
+//controll spinner
+
+const controllSpinner = (status) =>{
+    
+    if(status === true){
+           document.getElementById("spinner").classList.remove("hidden")
+           document.getElementById("choose-tree-header").classList.remove("hidden")
+      
+    }else{
+           document.getElementById("choose-tree-header").classList.remove("hidden")
+           document.getElementById("spinner").classList.remove("hidden")
+    }
+}
+
 // for default trees plant
 const loadAllTrees = () =>{
+  controllSpinner(true)
     fetch("https://openapi.programming-hero.com/api/plants")
         .then((res) => res.json())
         .then(data => displayTreeCat(data.plants))
@@ -23,7 +39,10 @@ const loadTreeCard = (id)=>{
         clickCat.classList.add("active")
        
         displayTreeCat(data.plants);
+        
      })  
+     controllSpinner(false)
+    
 }
 const loadTreeDetail = async(id) => {
      const url = `https://openapi.programming-hero.com/api/plant/${id}`;
@@ -103,8 +122,7 @@ const displayCatdetails = (id)=>{
     document.getElementById("trees_modal").showModal()
 }
 
-const displayTreeCat = (treeCarts) =>{
-    
+const displayTreeCat = (treeCarts) =>{ 
     const treesGrid = document.getElementById("trees-grid")
     treesGrid.innerHTML= ""
     treeCarts.slice(0, 6).forEach(treeCart => {
@@ -116,10 +134,10 @@ const displayTreeCat = (treeCarts) =>{
         /></figure>
           <div class="card-body text-left">
             <h2 onclick="loadTreeDetail(${treeCart.id})" class="font-bold">${treeCart.name}</h2>
-            <p>A fast-growing tropical tree that produces delicious mangoes.</p>
+            <p>${treeCart.description}</p>
             <div class="flex justify-between items-center mt-2">
-              <span class="bg-gray-100 px-3 py-1 rounded-3xl">Fruit Tree</span>
-              <span class="font-semibold">৳500</span>
+              <span class="bg-gray-100 px-3 py-1 rounded-3xl">${treeCart.category}</span>
+              <span class="font-semibold">${treeCart.price}</span>
             </div>
             <button onclick="addToCart('${treeCart.name}', ${treeCart.price})" class="btn w-full bg-green-600 text-white rounded-3xl btn-sm mt-2">Add to Cart</button>
           </div>
@@ -134,8 +152,6 @@ const displayTreeCat = (treeCarts) =>{
 //     "small_description": "Trees that bear edible fruits like mango, guava, and jackfruit."
 // }
 
-
-
 const displayCategories = (cats) =>{
     const categorylist = document.getElementById("category-list");
     categorylist.innerHTML = "";
@@ -146,8 +162,9 @@ const displayCategories = (cats) =>{
              <button id="activeCategory${cat.id}" onclick="loadTreeCard('${cat.id}')" class="btn btn-wide block justify-start categoryBtn">${cat.category_name}</button>
        `
          categorylist.appendChild(catLi)
-    })
-}
+    });
+    
+};
 
 loadCategories();
 loadAllTrees()
